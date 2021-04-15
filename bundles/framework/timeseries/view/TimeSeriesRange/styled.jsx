@@ -143,6 +143,7 @@ export const StyledRangeSlider = styled(Slider)`
         border-radius: 6px;
         border: solid 1px ${borderColor};
         background-color: ${primaryColor};
+        z-index: 2;
         &:focus,
         &:active,
         &:hover {
@@ -161,5 +162,32 @@ export const StyledRangeSlider = styled(Slider)`
     &:hover .ant-slider-handle {
         border: solid 1px ${borderColor} !important;
         background-color: ${primaryColor} !important;
+    }
+`;
+
+export const DataYearMark = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    span.slider-text {
+        min-height: 24px;
+    }
+
+    div.circle {
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        border: 2px;
+        z-index: 1;
+    }
+
+    strong {
+        display: none;
+        color: ${primaryColor};
+    }
+
+    &:hover > strong {
+        display: block;
     }
 `;

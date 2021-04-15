@@ -1,6 +1,19 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyledRangeSlider } from './styled';
+import { StyledRangeSlider, DataYearMark } from './styled';
+
+const DataYearMarkLabel = ({ hasSliderText, year }) => (
+    <DataYearMark>
+        <span className="slider-text">{hasSliderText ? year : ''}</span>
+        <div className="circle"></div>
+        <strong>{year}</strong>
+    </DataYearMark>
+);
+
+DataYearMarkLabel.propTypes = {
+    hasSliderText: PropTypes.bool.isRequired,
+    year: PropTypes.number.isRequired
+};
 
 export const YearRangeSlider = (props) => {
     const { start, end, dataYears, isMobile } = props;
@@ -22,8 +35,10 @@ export const YearRangeSlider = (props) => {
     // data years are those years that has timeseries photos in current map view
     // data years are also marks on the range slider but they are represented
     // as small circles on the timeline (via css styling)
-    dataYears.filter((year) => !marks[year]).forEach((year) => (marks[year] = ''));
-    return <StyledRangeSlider {...props} marks={marks} min={start} max={end} />;
+    dataYears.forEach(
+        (year) => (marks[year] = { label: <DataYearMarkLabel year={year} hasSliderText={!!marks[year]} /> })
+    );
+    return <StyledRangeSlider {...props} tooltipVisible marks={marks} min={start} max={end} />;
 };
 
 YearRangeSlider.propTypes = {
